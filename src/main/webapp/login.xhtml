@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"	
+	xmlns:p="http://primefaces.org/ui">  
+<h:head>
+	<title>ZIP CODE</title>
+<link rel="stylesheet" href = "css/styles.css"></link>
+	<script src="js/scripts.js"></script>
+ 
+
+
+
+</h:head>
+<h:body>
+<div id="checkLogin" style="display:none;" >#{login.user}</div>
+		<div id="showLogin" style="display:none;" ><a href="admin.xhtml">My Profile(#{login.user})</a></div>
+	<h:form>
+			<div id="loginOptions" style="display:none;">
+		<h:commandButton action="register"	value="Register"></h:commandButton>
+		<h:commandButton action="loginpage"	value="Login"></h:commandButton>
+		</div>
+		<br></br>
+		
+		<div id = "zipCenter">
+		<h:outputText value="Zip Code" />
+		<h:inputText id="zipcode" value="#{search.zipCode}"></h:inputText>
+		<h:message for="zipcode"></h:message>
+		<h:commandButton action="#{search.submit2()}"	value="Search"></h:commandButton>
+		</div>
+	
+		
+		
+		
+	
+<br></br>
+<br></br>
+
+
+
+
+
+
+
+
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+
+ 
+ 
+  
+    
+    
+    <br></br>
+    <br></br>
+    <br></br>
+    <br></br>
+ 
+    <br></br>
+    <br></br>
+    <br></br>
+     
+	</h:form>
+
+   
+    <script>window.onload = checkLogin();</script>
+    <script>window.onload = checkRegOptions();</script>
+</h:body>
+</html>

@@ -1,0 +1,143 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Register</title>
+</h:head>
+<h:body>
+	<h:form>
+		<p:panel id="panel" header="New User">
+			<p:messages id="msgs" />
+			<h3>Register Account</h3>
+
+
+			<p:outputLabel for="username" value="Username" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<p:inputText id="username" value="#{user.userName}" required="true"
+				label="username" requiredMessage="This field is required.">
+				<f:validateLength validatorMessage="test" minimum="2" />
+			</p:inputText>
+			<br />
+			<br />
+
+
+
+
+
+
+
+			<h:outputLabel for="pwd1" value="Password" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<p:password id="pwd1" value="#{user.userPassword}" match="pwd2"
+				label="Password 1" required="true" feedback="true"
+				validatorMessage="Passwords do not match" />
+			<br />
+			<br />
+			<h:outputLabel for="pwd2" value="Repeat Password" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<p:password id="pwd2" value="#{user.userPassword}" label="Password 2"
+				required="true" validatorMessage="Passwords do not match" />
+
+
+
+
+
+			<br />
+			<br />
+
+
+
+			<p:outputLabel for="email" value="Email" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<p:inputText id="email" value="#{user.email}" required="true"
+				label="email" requiredMessage="This field is required.">
+				<f:validateLength validatorMessage="test" minimum="2" />
+			</p:inputText>
+
+			<br />
+			<br />
+			<p:outputLabel for="firstname" value="First Name" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<p:inputText id="firstname" value="#{user.firstName}" required="true"
+				label="Firstname" requiredMessage="This field is required.">
+				<f:validateLength validatorMessage="test" minimum="2" />
+			</p:inputText>
+
+
+
+			<br />
+			<br />
+
+
+
+			<p:outputLabel for="middleName" value="Middle Name" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<p:inputText id="middleName" value="#{user.middleName}"
+				label="middleName">
+			</p:inputText>
+
+
+
+			<br />
+			<br />
+
+
+			<p:outputLabel for="lastName" value="Last Name" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<p:inputText id="lastName" value="#{user.lastName}" required="true"
+				label="lastName" requiredMessage="This field is required.">
+				<f:validateLength validatorMessage="test" minimum="2" />
+			</p:inputText>
+
+
+			<br />
+			<br />
+
+			<p:outputLabel for="street" value="Street" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<p:inputText id="street" value="#{user.street}" label="street">
+			</p:inputText>
+
+
+			<br />
+			<br />
+
+			<p:outputLabel for="city" value="City" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<p:inputText id="city" value="#{user.city}" label="city">
+			</p:inputText>
+
+
+
+			<br />
+			<br />
+			<p:outputLabel for="state" value="State" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<p:inputText id="state" value="#{user.state}" label="state">
+			</p:inputText>
+
+
+
+
+
+
+			<br />
+			<br />
+			<p:outputLabel for="zipCode" value="Zip Code" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<p:inputText id="zipCode" value="#{user.zipCode}" label="zipCode">
+			</p:inputText>
+
+
+			<br />
+			<br />
+
+
+
+
+
+
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p:commandButton value="Submit" update="panel"
+				action="#{user.register()}" icon="pi pi-check" />
+
+		</p:panel>
+
+
+
+
+	</h:form>
+</h:body>
+</html>

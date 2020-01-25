@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:p="http://primefaces.org/ui"
+ xmlns:b="http://bootsfaces.net/ui">
+<h:head>
+	<title>test2</title>
+		<link rel='stylesheet' type='text/css' href='sdk/map.css'/>
+	<script src='sdk/tomtom.min.js'></script>
+<link rel="stylesheet" href = "css/test.css"></link>
+</h:head>
+<h:body>
+	<h:form>
+	
+		
+		<div id="header">
+		<h:commandButton id="login" value="Login"    >
+		<f:ajax execute="removeF();" render="@none"  onclick="removeF();" />
+		</h:commandButton> 
+		
+		
+            <h:commandButton id="losgin" value="Logisssssn"  action="removeF()"  onclick="removeF();"  /> 
+        </div>
+        <div id ="parent">
+        <div id="nav">
+            NAV
+        </div>
+        <div id="content">
+        <div id="inside">
+        <div id='map' style='height:100%;width:100%'></div>
+            
+        </div>
+            
+        </div>
+       </div>
+       
+       
+		</h:form>
+	
+	
+	
+	
+<script>
+
+	
+	
+
+	
+  
+  
+  
+ 
+
+	 
+	 
+	 
+	var position = [ 41.888926,-87.655235 ];
+	 
+	    var map = tomtom.L.map('map', {
+		    key: 'BZ5HO2JvXjGdGos2v36i4MulnwKgKGfC',
+		    center: [  41.888926,-87.655235 ],
+		   
+		    zoom: 12,
+                    source: 'raster',
+                    basePath: '/sdk'
+	    });
+            
+	    
+            var marker = tomtom.L.marker(position, {
+       	     icon: tomtom.L.icon({
+       	    	iconUrl: 'img/marker.png',
+                    iconSize: [50, 75],
+                    iconAnchor: [17, 70],
+                    popupAnchor: [12, -80]
+       	      })
+           }).addTo(map);
+           
+            
+          
+            var pokus = [  [  -87.766133, 41.931359], [ -87.767235,  41.960478], [-87.727812, 41.960937],[ -87.726507,  41.931762]];
+            
+          
+            
+           var polygon = {
+    'type': 'FeatureCollection',
+    'features': [
+        {
+            'type': 'Feature',
+            'properties': {},
+            'geometry': {
+                'type': 'Polygon',
+                'coordinates': [
+                    
+                    	pokus
+                        
+                    
+                ]
+            }
+        }
+    ]
+};
+var geoJson = tomtom.L.geoJson(polygon, { style: { color: '#f44242', opacity: 1.0,  fillOpacity: 0.0, weight: 5 } }).addTo(map);
+
+
+function removeF() {
+marker.remove();
+}
+	</script>
+</h:body>
+
+</html>

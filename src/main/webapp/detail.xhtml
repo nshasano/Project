@@ -1,0 +1,157 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:ui="http://java.sun.com/jsf/facelets"
+	 xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Facelet Title</title>
+	<link rel='stylesheet' type='text/css' href='sdk/map.css'/>
+	<link rel="stylesheet" href = "css/styles.css"/>
+	<link rel="stylesheet" href = "css/detail.css"></link>
+	<script src='sdk/tomtom.min.js'></script>
+	<script src="js/scripts.js"></script>
+</h:head>
+<h:body>
+	<h:form>
+	<div id="user">#{login.user}</div>
+		<p>DETAILS</p>
+		<h:commandButton action="searchweb" value="Back to search"></h:commandButton>
+<br></br>
+			 <div id="transfer"><h:outputText value="#{camp.campID}"/></div>
+			
+					 <h:outputText value="#{searchDetail.orgName}"/>
+			 <br></br>
+             <h:outputText value="#{searchDetail.campName}"/> &nbsp;-&nbsp;<h:outputText value="#{searchDetail.activities}"/>
+             <br></br>
+             <h:outputText value="#{searchDetail.getStartDate()}"/> &nbsp;-&nbsp;
+             <h:outputText value="#{searchDetail.getEndDate()}"/>
+             <br></br>
+              <h:outputText value="#{searchDetail.startHour}"/> &nbsp;-&nbsp;
+             <h:outputText value="#{searchDetail.endHour}"/>
+             <br></br>
+             $<h:outputText value="#{searchDetail.price}"/>
+             <br></br>
+              $<h:outputText value="#{searchDetail.pricePerDay()}"/> per day
+              <br></br>
+              <h:outputText value="#{searchDetail.getNumberOfDays()}"/> days
+              <br></br>
+             <h:outputText value="#{searchDetail.gender}"/>
+             <br></br>
+             <h:outputText value="#{searchDetail.getFood()}"/>
+             <br></br>
+             <h:outputText value="#{searchDetail.getTransportation()}"/>
+             <br></br>
+             <h:outputText value="#{searchDetail.getBeforeCare()}"/>
+             <br></br>
+             <h:outputText value="#{searchDetail.getAfterCare()}"/>
+            <h:outputText value="#{searchDetail.campID}"/>
+            
+              <div id="lat" style="display:none;">#{searchDetail.longitude}</div>
+               <div id="lon" style="display:none;">#{searchDetail.latitude}</div>
+          
+   
+<h3>Other's people rating</h3>
+<div class="knob-container ui-corner-all">
+    <p:knob disabled="true" value="#{searchDetail.peopleRating}" foregroundColor="#339933"  backgroundColor="#808080" labelTemplate="{value}%"/>
+</div> 
+	<h3>Would you like to rate this camp?</h3>
+	<button  type='button' onclick="showKnob()">Rate this camp</button>
+<div class="knob-container  ui-corner-all" id= "knob">
+    <p:knob value="#{searchDetail.value}" labelTemplate="{value}%"  foregroundColor="#339933"  backgroundColor="#808080">
+     
+     </p:knob>
+     
+     <h:commandButton id="Save" 	value="Submit" action="#{searchDetail.sendRating()}" >
+     <f:param name = "id" value="#{searchDetail.campID}" />
+     </h:commandButton>
+</div>
+<div id="signIN2">
+  Please sign in
+  <h:commandButton action="loginpage"	value="Login"></h:commandButton>
+</div>
+<br></br>
+
+                
+                <br></br>
+                <p:dataTable var="review" value="#{searchDetail.reviews}"
+                 rows="10"
+                 paginator="true"
+                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+               
+    <p:column headerText="username">
+        <h:outputText value="#{review.username}" />
+    </p:column>
+ 
+    <p:column headerText="Reviews">
+        <h:outputText value="#{review.text}" />
+    </p:column>
+ 
+   
+</p:dataTable>
+<br></br>
+<button  type='button' onclick="showReview()">Review this camp</button>
+<div id="review">
+    <p:inputTextarea rows="5" cols="80" counter="display" maxlength="500" counterTemplate="{0} characters remaining."  id="textArea2"   value="#{searchDetail.text}" />
+    <br></br>
+    <p:commandButton value="Save"  action="#{searchDetail.insertReview()}"/>
+    <h:outputText id="display" />
+</div>
+<div id="signIN">
+  Please sign in
+  <h:commandButton action="loginpage"	value="Login"></h:commandButton>
+</div>
+
+	</h:form>
+<br></br>
+<br></br>
+	
+	 <div id='map' style='height:750px;width:750px'></div>
+	
+	<script>
+	var lon = document.getElementById('lon').innerHTML;
+	var lat = document.getElementById('lat').innerHTML;
+	
+	
+	var priceEls = document.getElementsByClassName("fname");
+	for (var i = 0; i &lt;  priceEls.length; i++) {
+	  var price = priceEls[i].innerText;
+	
+	}
+	
+  
+  
+  
+ 
+
+	 
+	 
+	 
+	var position = [lon, lat];
+	 
+	    var map = tomtom.L.map('map', {
+		    key: 'BZ5HO2JvXjGdGos2v36i4MulnwKgKGfC',
+		    center: [lon, lat],
+
+		    zoom: 12,
+                    source: 'raster',
+                    basePath: '/sdk'
+	    });
+            
+	    
+            var marker = tomtom.L.marker(position, {
+       	     icon: tomtom.L.icon({
+       	    	iconUrl: 'img/marker.png',
+                    iconSize: [50, 75],
+                    iconAnchor: [17, 70],
+                    popupAnchor: [12, -80]
+       	      })
+           }).addTo(map)
+           
+           
+		 
+	</script>
+</h:body>
+</html>

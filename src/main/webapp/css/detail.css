@@ -1,0 +1,32 @@
+thead tr th:first-child,
+tbody tr td:first-child {
+  width: 8em;
+  min-width: 8em;
+  max-width: 8em;
+  word-break: break-all;
+}
+
+#review{
+	display: none;
+}
+#knob{
+	display: none;
+}
+
+
+#signIN{
+	display: none;
+	background-color: #FFA07A;
+	height: 100px;
+	width: 100%;
+}
+#user{
+	display: none;
+}
+
+#signIN2{
+	display: none;
+	background-color: #FFA07A;
+	height: 100px;
+	width: 100%;
+}

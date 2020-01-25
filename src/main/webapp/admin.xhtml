@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title>Facelet Title</title>
+	<link rel="stylesheet" href = "css/styles.css"></link>
+</h:head>
+<h:body>
+	<h:form>
+		<p>Welcome #{login.user}</p>
+		<h:commandLink action="#{login.logout}" value="Logout"></h:commandLink>
+		
+		<h:commandButton action="searchweb"
+			value="Search"></h:commandButton>
+			<h:commandButton action="login"
+			value="Zip CODE"></h:commandButton>
+		
+			
+			<p>Your favorite camps:</p>
+			<h:panelGroup id="alvs">
+			<ul>
+			 <ui:repeat value="#{favorite.favoriteCamps}" var="camp" varStatus="metadata">
+				 <li style="background-color:#{ (metadata.odd ? 'rgb(238,238,238)' : 'white')}">
+			
+				 
+			  <h:commandLink  id="list" action="#{searchDetail.outcome()}">
+			 	 <div id="list"> #{camp.campID}
+                  <f:param  name="id" value="#{camp.campID}" />
+			 <h:outputText value="#{camp.orgName}"/>
+			 <br></br>
+             <h:outputText value="#{camp.campName}"/> &nbsp;-&nbsp;<h:outputText value="#{camp.activity}"/>
+             <br></br>
+             <h:outputText value="#{camp.getStartDate()}"/> &nbsp;-&nbsp;
+             <h:outputText value="#{camp.getEndDate()}"/>
+             <br></br>
+             <h:outputText value="#{camp.gender}"/>
+             <br></br>
+             <h:outputText value="#{camp.getFood()}"/>
+             <br></br>
+             <h:outputText value="#{camp.getTransportation()}"/>
+             <br></br>
+             <h:outputText value="#{camp.getBeforeCare()}"/>
+             <br></br>
+             <h:outputText value="#{camp.getAfterCare()}"/>
+   				 </div>
+   		     </h:commandLink >
+   		       <h:commandButton id = "submit"  value = "Remove from Favorite" action = "#{favorite.remOutcome()}"> 
+  			 <f:param name = "id3" value="#{camp.campID}" /> 
+	   	   	</h:commandButton>
+	   	   	 
+   		     	 <br></br>
+            </li>
+           </ui:repeat>
+          </ul>
+          </h:panelGroup>
+			
+			
+	</h:form>
+</h:body>
+</html>

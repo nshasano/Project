@@ -1,0 +1,290 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Facelet Title</title>
+	<link rel='stylesheet' type='text/css' href='sdk/map.css'/>
+	<script src='sdk/tomtom.min.js'></script>
+	 
+</h:head>
+<h:body>
+	<h:form>
+		<p>TEST</p>
+		
+		<p:megaMenu orientation="#{megaMenuView.orientation}" style="margin-top:20px">
+		  <p:submenu label="Sports" icon="pi pi-file">
+ 
+        <p:column>
+            <p:submenu label="Sports.1">
+            <p:menuitem value="Sports.2.1" url="#" ><p:selectBooleanCheckbox value="#{search.checkBeforeHours}" /></p:menuitem>
+                 <f:selectItem itemLabel="Option 1" itemValue="1" />
+                <p:menuitem value="Sports.1.2" url="#" />
+            </p:submenu>
+            <p:submenu label="Sports.2">
+                <p:menuitem value="Sports.2.1" url="#" />
+                <p:menuitem value="Sports.2.2" url="#" />
+                <p:menuitem value="Sports.2.3" url="#" />
+            </p:submenu>
+        </p:column>
+ 
+        <p:column>
+            <p:submenu label="Sports.4">
+                <p:menuitem value="Sports.4.1" url="#" />
+                <p:menuitem value="Sports.4.2" url="#" />
+            </p:submenu>
+            <p:submenu label="Sports.5">
+                <p:menuitem value="Sports.5.1" url="#" />
+                <p:menuitem value="Sports.5.2" url="#" />
+                <p:menuitem value="Sports.5.3" url="#" />
+            </p:submenu>
+        </p:column>
+        <p:column>
+            <p:submenu label="Sports.7">
+                <p:menuitem value="Sports.7.1" url="#" />
+                <p:menuitem value="Sports.7.2" url="#" />
+            </p:submenu>
+        </p:column>
+    </p:submenu>
+		</p:megaMenu>
+		<br></br>
+		<br></br>
+		testik
+		
+		<h:commandButton action="#{login.prd}"
+			value="TEST"></h:commandButton>
+			<h:commandButton action="login"
+			value="HOME"></h:commandButton>
+			<br></br>
+			<h:outputText value="#{login.pokus}"></h:outputText>  
+			<br></br>
+			
+			
+			<p:dataGrid var="camp" value="#{search.camps}" columns="1" layout="grid"
+        rows="3" paginator="true" id="cars"
+        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+        rowsPerPageTemplate="2,3,8" >
+			<p:ajax event="page" onstart="myFunction3();"   onsuccess="myFunction2();" oncomplete="myFunction();" />
+                      
+			 <h:commandLink  id="list" action="#{searchDetail.outcome()}">
+			 	 <f:param name = "id" value="#{camp.campID}" />
+			 	 <div id="list"> 
+			 	 
+                   
+			 
+			 
+			 <h:outputText value="#{camp.campID}"/>
+			 <h:outputText value="#{camp.orgName}"/>
+			 <br></br>
+             <div  class="name">
+             <h:outputText value="#{camp.campName}"/>
+             </div> &nbsp;-&nbsp;<h:outputText value="#{camp.activity}"/>
+             <br></br>
+             <h:outputText value="#{camp.getStartDate()}"/> &nbsp;-&nbsp;
+             <h:outputText value="#{camp.getEndDate()}"/>
+             <br></br>
+             <h:outputText value="#{camp.gender}"/>
+             <br></br>
+             <h:outputText value="#{camp.getFood()}"/>
+             <br></br>
+             <h:outputText value="#{camp.getTransportation()}"/>
+             <br></br>
+             <h:outputText value="#{camp.getBeforeCare()}"/>
+             <br></br>
+             <h:outputText value="#{camp.getAfterCare()}"/>
+            
+                <div style="display:none;" class="lon">#{camp.getLatitude()}</div>
+               <div  style="display:none;" class="lat">#{camp.getLongitude()}</div>
+      </div>
+             </h:commandLink >
+             
+      <h:commandButton id = "submit"  value = "Add to favorite" action = "#{searchDetail.favOutcome()}"> 
+  			 <f:param name = "id2" value="#{camp.campID}" /> 
+	   	   	</h:commandButton>
+	   	   	 <h:commandButton id = "submit2"  value = "OPEN" action = "#{searchDetail.outcome()}"> 
+  			 <f:param name = "id" value="#{camp.campID}" /> 
+	   	   	</h:commandButton>
+            
+        
+			
+			
+			</p:dataGrid>
+			<br></br>
+			
+			
+			
+			<ul>
+			 <ui:repeat value="#{search.camps}" var="camp" varStatus="metadata">
+			 <li style="background-color:#{ (metadata.odd ? 'grey' : 'white')}">
+			 
+			  <h:commandLink  id="list" action="#{searchDetail.outcome()}">
+			 	 <div id="list"> 
+			 	 
+                  <f:param  name="id" value="#{camp.campID}" />
+			 <h:outputText value="#{camp.orgName}"/>
+			 <br></br>
+             pred tim to &nbsp;-&nbsp;<h:outputText value="#{camp.activity}"/>
+             <br></br>
+             <h:outputText value="#{camp.getStartDate()}"/> &nbsp;-&nbsp;
+             <h:outputText value="#{camp.getEndDate()}"/>
+             <br></br>
+             <h:outputText value="#{camp.gender}"/>
+             <br></br>
+             <h:outputText value="#{camp.getFood()}"/>
+             <br></br>
+             <h:outputText value="#{camp.getTransportation()}"/>
+             <br></br>
+             <h:outputText value="#{camp.getBeforeCare()}"/>
+             <br></br>
+             <h:outputText value="#{camp.getAfterCare()}"/>
+            </div>
+             </h:commandLink >
+     
+     
+            </li>
+          
+           </ui:repeat>
+          </ul>
+			<br></br>
+			<br></br><br></br>
+			<br></br><br></br>
+			<br></br>
+			
+			<h:dataTable value="#{search.camps}" var="camp" border="2">
+		<h:column>
+			<f:facet name="header">Name</f:facet>
+         #{camp.campName}
+      </h:column>
+		<h:column>
+			<f:facet name="header">Type</f:facet>
+         #{camp.activity}
+      </h:column>
+		<h:column>
+			<f:facet name="header">Price</f:facet>
+           #{camp.price}
+       </h:column>
+		<h:column>
+			<f:facet name="header">Registration Day</f:facet>
+           #{camp.registrationDay}
+       </h:column>
+		<h:column>
+			<f:facet name="header">Food</f:facet>
+           #{camp.food}
+       </h:column>
+       		<h:column>
+			<f:facet name="header">Transportation</f:facet>
+           #{camp.transportation}
+       </h:column>
+	</h:dataTable>
+	
+		<br></br>
+		<br></br>
+			<br></br>
+			<h:outputText 
+    	 value="#{search.checkType}"/>
+			<br></br>
+			<h:outputText 
+    	 value="#{search.zipCode}"/>
+    	 <br></br>
+			<h:outputText value="otaznik"></h:outputText> 
+			
+			
+	</h:form>
+	
+	<div id="weathermap"></div>
+	 
+
+ <script>
+ function myFunction3() {
+document.getElementById("map").remove();
+ }
+</script>
+     <script>
+     
+     
+     function myFunction2() {
+     var g = document.createElement('div');
+     g.id = 'map';
+     g.style.cssText = style='height:750px;width:750px';
+   
+     document.getElementById('weathermap').appendChild(g);
+     }
+     </script>
+     <script>window.onload = myFunction2();</script>
+      <script>
+      function myFunction() { 
+    	  
+    	 
+    	  
+    	
+    	  
+    	  
+    	  
+        
+
+      
+      
+	var lat = document.getElementsByClassName("lat");
+	var lon = document.getElementsByClassName("lon");
+	var names = document.getElementsByClassName("name");
+	
+	var sumLon = 0;
+	var sumLat = 0;
+	for (var i = 0; i &lt;  lat.length; i++) {
+		sumLon += parseFloat(lon[i].innerText);
+		   sumLat += parseFloat(lat[i].innerText);
+	}
+	sumLon = sumLon / lat.length;
+	sumLat = sumLat / lat.length;
+	
+	  var map = tomtom.L.map('map', {
+	 	    key: 'BZ5HO2JvXjGdGos2v36i4MulnwKgKGfC',
+	 	   center: [sumLon, sumLat],
+		    zoom: 11,
+	                 source: 'raster',
+	                 basePath: '/sdk'
+	     });
+    
+	
+    var markers = tomtom.L.markerClusterGroup();
+
+	var image =1;
+	for (var i = 0; i &lt;  lat.length; i++) {
+	  var listLon = lon[i].innerText;
+	  var listLat = lat[i].innerText;
+	  var listName = names[i].innerText;
+	  var position = [listLon, listLat ];
+	  var marker = tomtom.L.marker(position, {
+    	     icon: tomtom.L.icon({
+    	    	iconUrl: 'img/number-' +image+ '.png',
+                 iconSize: [50, 75],
+                 iconAnchor: [17, 70],
+                 popupAnchor: [12, -80]
+    	      })
+        });
+	    markers.addLayer(marker);
+
+	  image++;
+        marker.bindPopup(listName).addTo(map);
+	}
+	
+ 
+	
+            
+   
+    map.addLayer(markers);
+
+      }      
+           
+		 
+	</script>
+	
+	<script>window.onload = myFunction();</script>
+	<script>window.onload = myFunction2();</script>
+	
+</h:body>
+</html>

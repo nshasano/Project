@@ -1,0 +1,359 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>login</title>
+	<link rel="stylesheet" href = "css/styles.css"></link>
+	<link rel='stylesheet' type='text/css' href='sdk/map.css'/>
+	<script src='sdk/tomtom.min.js'></script>
+	<script src="js/scripts.js"></script>
+</h:head>
+<h:body>
+	<h:form>
+	<div id="circleLat" style="display:none;"  >#{search.checkLat}</div>
+	<div id="circleLon" style="display:none;" >#{search.checkLon}</div>
+	<div id="removeOutline" >
+
+	<p:selectOneMenu id="radius" value="#{search.checkRadius}" 
+    style="width:250px;" >
+     <p:ajax event="change"  listener="#{search.removeZipCode()}"  update="alvs"  onstart="removeMarkers();"    oncomplete="drawMarkers();" />
+     		<f:selectItem itemValue="2.4999" itemLabel="Change searching radius" />
+     		<f:selectItem itemValue="2.5" itemLabel="2.5 miles (default)" />
+            <f:selectItem itemValue="5" itemLabel="5 miles" />
+            <f:selectItem itemValue="10" itemLabel="10 miles" />
+            <f:selectItem itemValue="15" itemLabel="15 miles" />
+            <f:selectItem itemValue="20" itemLabel="20 miles" />
+        </p:selectOneMenu>
+	</div>
+	<div class="header">
+	
+		<h3>Welcome</h3> 
+		<div id="loginOptions" style="display:none;">
+		<h:commandButton action="register"	value="Register"></h:commandButton>
+		<h:commandButton action="loginpage"	value="Login"></h:commandButton>
+		</div>
+		<br></br>
+		<div id="checkLogin" style="display:none;" >#{login.user}</div>
+		<div id="showLogin" style="display:none;" ><a href="admin.xhtml">My Profile(#{login.user})</a></div>
+		<br></br>
+			
+		<h:outputLabel for="grouped" value="Select type:" />
+        <p:selectCheckboxMenu id="grouped" value="#{search.selectedCamps}" label="Cars" multiple="true"
+                              filter="true" filterMatchMode="startsWith" scrollHeight="750" panelStyle="height:750px"> 
+                            <f:selectItems value="#{search.campList}" />
+        </p:selectCheckboxMenu>
+        
+   		&nbsp;&nbsp;&nbsp;
+			<h:selectOneMenu value="#{search.checkGrade}">
+			<f:selectItem itemValue="Grade" itemLabel="Select Grade" />
+   			<f:selectItem itemValue="-1" itemLabel="JK (4 year olds)" />
+   			<f:selectItem itemValue="0" itemLabel="SK (5 year olds)" />
+   			<f:selectItem itemValue="1" itemLabel="1" />
+   			<f:selectItem itemValue="2" itemLabel="2" />
+   		    <f:selectItem itemValue="3" itemLabel="3" />
+   			<f:selectItem itemValue="4" itemLabel="4" />
+   		    <f:selectItem itemValue="5" itemLabel="5" />
+   			<f:selectItem itemValue="6" itemLabel="6" />
+   		    <f:selectItem itemValue="7" itemLabel="7" />
+   			<f:selectItem itemValue="8" itemLabel="8" />
+   		    <f:selectItem itemValue="9" itemLabel="9" />
+   			<f:selectItem itemValue="10" itemLabel="10" />
+   		    <f:selectItem itemValue="11" itemLabel="11" />
+   			<f:selectItem itemValue="12" itemLabel="12" />
+   		</h:selectOneMenu>
+			&nbsp;&nbsp;&nbsp;
+			<h:selectOneMenu value="#{search.checkPrice}">
+			<f:selectItem itemValue="Price" itemLabel="Select Maximum Price" />
+   			<f:selectItem itemValue="1000" itemLabel="Max price: $1000" />
+   			<f:selectItem itemValue="2000" itemLabel="Max price: $2000" />
+   			<f:selectItem itemValue="3000" itemLabel="Max price: $3000" />
+   			<f:selectItem itemValue="9999999" itemLabel="Max price: $3000+" />
+   		</h:selectOneMenu>
+			&nbsp;&nbsp;&nbsp;
+			
+		<p:outputLabel for="event" value="Select Start Date: " />
+        <p:datePicker autocomplete="off" id="event" value="#{search.checkDate}"></p:datePicker>
+        
+
+        <h:outputText value="Zip Code" />
+		<h:inputText id="zipcode" value="#{search.zipCode}"></h:inputText>
+		
+     
+   			
+   			<br></br>
+			<h:selectBooleanCheckbox value="#{search.checkFood}"/> Food
+			&nbsp;&nbsp;&nbsp;
+			<h:selectBooleanCheckbox value="#{search.checkTransportation}"/> Transportation
+			<br></br>
+			<h:selectBooleanCheckbox value="#{search.checkBeforeHours}"/> Before Care
+			&nbsp;&nbsp;&nbsp;
+			<h:selectBooleanCheckbox value="#{search.checkAfterHours}"/> After Care
+			<br></br>
+		
+		 <h:commandButton id="submitButton" process="@this,alvs" update="alvs"	value="Search" action="#{search.submit()}" />
+		 <h:commandButton id="compareButton" value="Compare" action="#{compare.submit2()}"  />
+		
+		
+	  
+				
+			
+			</div>
+			<br></br>
+			<div class="parent" id="mapaPlusList">
+			<div class="nav" >
+			<h:panelGroup id="alvs">
+			<div id="circleRadius" style="display:none;" >#{search.checkRadius}</div>
+			
+			<p:dataGrid var="camp" value="#{search.camps}" columns="1" layout="grid"
+       			 rows="9" paginator="true" id="camps"  first="#{search.first}"
+      			 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "  style="overflow-y: auto;height: calc(100vh - 280px);width: 520px; ">
+     	    <p:ajax event="page" listener="#{search.onPageChange}"/>
+			<p:ajax event="page" onstart="removeMarkers();"    oncomplete="drawMarkers();" />
+         
+			 <h:commandLink  id="list" action="#{searchDetail.outcome()}">
+			 	 <f:param name = "id" value="#{camp.campID}" />
+		<div id="list"> 
+				 <br></br>
+				 <div  class="name">
+				 <h:outputText value="#{camp.campName}"/>
+				   </div>
+			<h:outputText  name="testss" value="#{camp.campID}"/>
+				 <h:outputText value="#{camp.orgName}"/>
+				 <br></br>
+				 <img src="img/org/#{camp.orgName}.png" ></img>
+           		 <br></br>
+          	     <h:outputText value="#{camp.activity}"/>
+          	     <br></br>
+           		 <h:outputText value="#{camp.getStartDate()}"/> &nbsp;-&nbsp;
+                 <h:outputText value="#{camp.getEndDate()}"/>
+                 <br></br>
+                 <h:outputText value="#{camp.startHour}"/> &nbsp;-&nbsp;
+                 <h:outputText value="#{camp.endHour}"/>
+                 
+                 <br></br>
+                $<h:outputText value="#{camp.price}"/>
+                 <br></br>
+                 <h:outputText value="#{camp.getNumberOfDays()}"/> days
+                 <br></br>
+                $<h:outputText value="#{camp.pricePerDay()}"/> per day
+        
+                <div style="display:none;" class="lon">#{camp.getLatitude()}</div>
+               <div  style="display:none;" class="lat">#{camp.getLongitude()}</div>
+               <div  style="display:none;" class="street">#{camp.getStreet()}</div>
+               <div  style="display:none;" class="city">#{camp.getCity()}</div>
+               <div  style="display:none;" class="state">#{camp.getState()}</div>
+               <div  style="display:none;" class="zipcode">#{camp.getZipcode()}</div>
+               
+               
+      </div>
+             </h:commandLink >
+             
+    	    <h:commandButton id = "submit"  value = "Add to favorite" action = "#{favorite.favOutcome()}"> 
+  			 <f:param name = "id2" value="#{camp.campID}" /> 
+  			 
+  			 
+  			
+	   	   	</h:commandButton>
+	   	   	
+	   	   	 
+  
+          
+         
+          
+          <p:selectBooleanCheckbox itemLabel="Compare" value="#{camp.selected}" >
+         
+           
+            <f:param name = "id2" value="#{camp.campID}" />
+          
+         <p:ajax  listener="#{compare.compare()}" />
+              
+            
+          </p:selectBooleanCheckbox>
+          
+          
+       
+        
+			
+			
+			</p:dataGrid>
+          </h:panelGroup>
+          
+          </div>
+          
+        <div id="content">
+       		  <div id="inside">
+       			 <div id='map' style='height:100%;width:100%'>
+       			 </div>
+          	  
+      	     </div>
+            
+        </div>
+       
+</div>	
+	</h:form>
+	
+
+ <script>
+
+</script>
+     <script>
+     var markers;
+     var map;
+     var circle;
+     var marker;
+     function mapFCE() {
+     map = tomtom.L.map('map', {
+	 	    key: 'BZ5HO2JvXjGdGos2v36i4MulnwKgKGfC',
+	 	   center: [ 41.931359,-87.766133],
+		    zoom: 12,
+	                 source: 'raster',
+	                 basePath: '/sdk'
+	     });
+     
+     }
+     
+     
+     
+      function drawMarkers() { 
+    	  
+    	  var clat = document.getElementById("circleLat").innerHTML;
+    	  var clon = document.getElementById("circleLon").innerHTML;
+    	  var cradius= document.getElementById("circleRadius").innerHTML;
+    	  var cpoint = [clat, clon];
+    	 if(clat != "")
+    		 {
+    	  var radius = cradius * 1609.34;
+    	  circle =  tomtom.L.circle([clat, clon], radius, {
+    		    color: 'red',
+    		    fillColor: '#39ff14',
+    		    fillOpacity: 0.0
+    		})
+    	  
+    	 map.addLayer(circle);
+    		 }
+    	 
+    	 
+	var lat = document.getElementsByClassName("lat");
+	var lon = document.getElementsByClassName("lon");
+	var names = document.getElementsByClassName("name");
+	var streets = document.getElementsByClassName("street");
+	var cities = document.getElementsByClassName("city");
+	var states = document.getElementsByClassName("state");
+	var zipcodes = document.getElementsByClassName("zipcode");
+	
+	if(lat.length != 0)
+		{
+	
+	var sumLon = 0;
+	var sumLat = 0;
+	for (var i = 0; i &lt;  lat.length; i++) {
+		sumLon += parseFloat(lon[i].innerText);
+		   sumLat += parseFloat(lat[i].innerText);
+	}
+	sumLon = sumLon / lat.length;
+	sumLat = sumLat / lat.length;
+	
+	 var point = [sumLon,sumLat];
+	 
+	 var zoomMap = 11;
+	 if(cradius == 2.5)
+		 zoomMap = 13;
+	 
+	 if(cradius == 2.4999)
+		 zoomMap = 13;
+	 
+	 if(cradius == 2.5)
+		 zoomMap = 13;
+	 
+	 if(cradius == 5)
+		 zoomMap = 12;
+		 
+	 if(cradius == 20)
+		 zoomMap = 10;
+	 
+	 if(clat == "")
+		 {
+	 map.flyTo(point, zoom = zoomMap , {
+	        animate: true,
+	        duration: 1.0
+	});
+		 }
+	 else
+		 {
+		 
+		 map.flyTo(cpoint, zoom = zoomMap , {
+		        animate: true,
+		        duration: 1.0
+		});
+			 }
+		 
+		 
+		 }
+	
+	 markers = new L.FeatureGroup();
+
+	var image =1;
+	for (var i = 0; i &lt;  lat.length; i++) {
+	  var listLon = lon[i].innerText;
+	  var listLat = lat[i].innerText;
+	  var listName = names[i].innerText;
+	  var listStreet = streets[i].innerText;
+	  var listCity = cities[i].innerText;
+	  var listState = states[i].innerText;
+	  var listZipcode = zipcodes[i].innerText;
+	  
+	  
+	  var position = [listLon, listLat ];
+	 marker = tomtom.L.marker(position, {
+    	     icon: tomtom.L.icon({
+    	    	iconUrl: 'img/number-' +image+ '.png',
+                 iconSize: [50, 75],
+                 iconAnchor: [17, 70],
+                 popupAnchor: [12, -80]
+    	      })
+        });
+	   
+	 markers.addLayer(marker);
+	  
+
+	  image++;
+        marker.bindPopup('<b>' + listName + '</b><br></br>' + listStreet + '<br></br>' + listCity + ' ' + listState + ' ' +  listZipcode).addTo(map);
+	}
+	
+
+    map.addLayer(markers);
+		  
+      }      
+       
+ 
+      function removeMarkers() {
+    		
+    	 
+    	  if(markers != null)
+    		  {
+ 	     markers.remove();
+ 	    
+    		  }
+    	  if(circle != null)
+    		  {
+ 	     circle.remove();
+    		  }
+    	 }
+      
+      
+		 
+	</script>
+	<script>window.onload = mapFCE();</script>
+	<script>window.onload = drawMarkers();</script>
+
+	<script>window.onload = checkLogin();</script>
+	<script>window.onload = checkRegOptions();</script>
+	
+	
+	
+</h:body>
+</html>

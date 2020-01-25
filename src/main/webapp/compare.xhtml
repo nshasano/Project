@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>compare</title>
+<link rel="stylesheet" href = "css/compare.css"></link>
+</h:head>
+<h:body>
+<a href="searchweb.xhtml">Back to search</a>
+	<h:form>
+	
+	<h:panelGroup id="alvss">
+	<p:dataGrid var="camp" value="#{compare.compareCamps}" columns="4" layout="grid"
+         id="comparecamps" >
+        
+       <f:facet name="header" style="width:100%">
+           Compare Camps
+        </f:facet>
+      
+ 
+        <p:panel header="#{camp.campName}" style="text-align:center">
+            <h:panelGrid columns="1" style="width:100%">
+         
+               
+               
+ 			 <h:outputText value="#{camp.orgName}"/>  
+             <img src="img/org/#{camp.orgName}.png" ></img>
+ 			 <br></br>
+             <h:outputText value="#{camp.orgName}"/> 
+			 <br></br>
+             <h:outputText value="#{camp.campName}"/>
+             <br></br>
+             <h:outputText value="#{camp.activities}"/>
+             <br></br>
+             <h:outputText value="$#{camp.price}"/>
+            
+             <br></br>
+            <h:outputText value="$#{camp.pricePerDay()}"/>
+            
+             <br></br>
+            
+             
+             <h:outputText value="#{camp.getStartDate()}"/> &nbsp;-&nbsp;
+             <h:outputText value="#{camp.getEndDate()}"/>
+             <br></br>
+              <h:outputText value="#{camp.startHour}"/> &nbsp;-&nbsp;
+             <h:outputText value="#{camp.endHour}"/>
+             <br></br>
+             <h:outputText value="#{camp.gender}"/>
+             <br></br>
+             <h:outputText value="#{camp.getFood()}"/>
+             <br></br>
+             <h:outputText value="#{camp.getTransportation()}"/>
+             <br></br>
+             <h:outputText value="#{camp.getBeforeCare()}"/>
+             <br></br>
+             <h:outputText value="#{camp.getAfterCare()}"/>
+            </h:panelGrid>
+            
+            <f:facet name="actions">
+         
+            <h:commandLink  action="#{compare.removeCompare()}"  >
+            	<h:graphicImage value="img/delete.png" />
+            	  <f:param name = "id2" value="#{camp.campID}" />
+            </h:commandLink>
+            
+          
+            
+        </f:facet>
+        </p:panel>
+ 
+    </p:dataGrid>
+    </h:panelGroup>
+   
+    
+	
+	
+		</h:form>
+	
+	
+	
+	
+
+</h:body>
+</html>
