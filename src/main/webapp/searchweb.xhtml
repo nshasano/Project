@@ -31,10 +31,10 @@ xmlns:ui="http://java.sun.com/jsf/facelets"
 	</div>
 	<div class="header">
 	
-		<h3>Welcome</h3> 
+		
 		<div id="loginOptions" style="display:none;">
-		<h:commandButton action="register"	value="Register"></h:commandButton>
-		<h:commandButton action="loginpage"	value="Login"></h:commandButton>
+		<h:commandButton styleClass="buttonStyleB" action="register"	value="Register"></h:commandButton>
+		<h:commandButton styleClass="buttonStyleB" action="loginpage"	value="Login"></h:commandButton>
 		</div>
 		<br></br>
 		<div id="checkLogin" style="display:none;" >#{login.user}</div>
@@ -47,8 +47,21 @@ xmlns:ui="http://java.sun.com/jsf/facelets"
                             <f:selectItems value="#{search.campList}" />
         </p:selectCheckboxMenu>
         
+    <!--    <p:selectCheckboxMenu id="menu" value="#{search.checkGrade}" 
+                              filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+            <f:selectItem itemValue="5" itemLabel="5" />
+   			<f:selectItem itemValue="6" itemLabel="6" />
+   		    <f:selectItem itemValue="7" itemLabel="7" />
+   			<f:selectItem itemValue="8" itemLabel="8" />
+   		    <f:selectItem itemValue="9" itemLabel="9" />
+   			<f:selectItem itemValue="10" itemLabel="10" />
+   		    <f:selectItem itemValue="11" itemLabel="11" />
+   			<f:selectItem itemValue="12" itemLabel="12" />
+        </p:selectCheckboxMenu> -->
+        
+        
    		&nbsp;&nbsp;&nbsp;
-			<h:selectOneMenu value="#{search.checkGrade}">
+			<h:selectOneMenu styleClass="mymenu" value="#{search.checkGrade}">
 			<f:selectItem itemValue="Grade" itemLabel="Select Grade" />
    			<f:selectItem itemValue="-1" itemLabel="JK (4 year olds)" />
    			<f:selectItem itemValue="0" itemLabel="SK (5 year olds)" />
@@ -86,16 +99,16 @@ xmlns:ui="http://java.sun.com/jsf/facelets"
    			
    			<br></br>
 			<h:selectBooleanCheckbox value="#{search.checkFood}"/> Food
-			&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<h:selectBooleanCheckbox value="#{search.checkTransportation}"/> Transportation
 			<br></br>
 			<h:selectBooleanCheckbox value="#{search.checkBeforeHours}"/> Before Care
-			&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<h:selectBooleanCheckbox value="#{search.checkAfterHours}"/> After Care
 			<br></br>
-		
-		 <h:commandButton id="submitButton" process="@this,alvs" update="alvs"	value="Search" action="#{search.submit()}" />
-		 <h:commandButton id="compareButton" value="Compare" action="#{compare.submit2()}"  />
+		<br></br>
+		 <h:commandButton styleClass="buttonStyle"    id="submitButton" process="@this,alvs" update="alvs"	value="Search" action="#{search.submit()}" />
+		 <h:commandButton styleClass="buttonStyleC"  id="compareButton" value="Compare" action="#{compare.submit2()}"  />
 		
 		
 	  
@@ -152,7 +165,7 @@ xmlns:ui="http://java.sun.com/jsf/facelets"
       </div>
              </h:commandLink >
              
-    	    <h:commandButton id = "submit"  value = "Add to favorite" action = "#{favorite.favOutcome()}"> 
+    	    <h:commandButton styleClass="buttonStyleB" id = "submit"  value = "Add to favorite" action = "#{favorite.favOutcome()}"> 
   			 <f:param name = "id2" value="#{camp.campID}" /> 
   			 
   			 
@@ -162,7 +175,7 @@ xmlns:ui="http://java.sun.com/jsf/facelets"
 	   	   	 
   
           
-         
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           
           <p:selectBooleanCheckbox itemLabel="Compare" value="#{camp.selected}" >
          

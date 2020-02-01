@@ -12,7 +12,7 @@ xmlns:p="http://primefaces.org/ui">
 <link rel="stylesheet" href = "css/compare.css"></link>
 </h:head>
 <h:body>
-<a href="searchweb.xhtml">Back to search</a>
+<a href="searchweb.xhtml" class="buttonBack">Back to search</a>
 	<h:form>
 	
 	<h:panelGroup id="alvss">
@@ -29,28 +29,28 @@ xmlns:p="http://primefaces.org/ui">
          
                
                
- 			 <h:outputText value="#{camp.orgName}"/>  
+ 			
              <img src="img/org/#{camp.orgName}.png" ></img>
  			 <br></br>
              <h:outputText value="#{camp.orgName}"/> 
 			 <br></br>
-             <h:outputText value="#{camp.campName}"/>
+             <h:outputText value="name: #{camp.campName}"/>
              <br></br>
-             <h:outputText value="#{camp.activities}"/>
+             <h:outputText value="type: #{camp.activities}"/>
              <br></br>
-             <h:outputText value="$#{camp.price}"/>
+             <h:outputText value="price:  $#{camp.price}"/>
             
              <br></br>
-            <h:outputText value="$#{camp.pricePerDay()}"/>
+            <h:outputText value="price per day: $#{camp.pricePerDay()}"/>
             
              <br></br>
             
              
-             <h:outputText value="#{camp.getStartDate()}"/> &nbsp;-&nbsp;
-             <h:outputText value="#{camp.getEndDate()}"/>
+             <h:outputText value="camp start date: #{camp.getStartDate()}"/> &nbsp;-&nbsp;
+             <h:outputText value="camp end date: #{camp.getEndDate()}"/>
              <br></br>
-              <h:outputText value="#{camp.startHour}"/> &nbsp;-&nbsp;
-             <h:outputText value="#{camp.endHour}"/>
+              <h:outputText value="camp start hour: #{camp.startHour}"/> &nbsp;-&nbsp;
+             <h:outputText value="camp end hour: #{camp.endHour}"/>
              <br></br>
              <h:outputText value="#{camp.gender}"/>
              <br></br>
